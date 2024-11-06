@@ -13,7 +13,12 @@ def print_transportation_table(costs, supply, demand):
     """
     m = len(costs)
     n = len(costs[0])
-    
+
+    if m != len(supply):
+        raise ValueError("Supply does not match number of sources")
+    if n != len(demand):
+        raise ValueError("Demand does not match number of destinations")
+
     print("\nTransportation Problem Table:")
     print("     ", end="")
     for j in range(n):
@@ -31,9 +36,11 @@ def print_transportation_table(costs, supply, demand):
         print(f"{demand[j]:4d}  ", end="")
     print()
 
+
 def is_balanced(supply, demand):
     """Check if total supply equals total demand"""
     return sum(supply) == sum(demand)
+
 
 def northwest_corner(supply, demand):
     """
@@ -59,6 +66,7 @@ def northwest_corner(supply, demand):
             j += 1
             
     return solution
+
 
 def vogel_approximation(costs, supply, demand):
     """
@@ -119,6 +127,7 @@ def vogel_approximation(costs, supply, demand):
     
     return solution
 
+
 def russell_approximation(costs, supply, demand):
     """
     Implement Russell's Approximation Method
@@ -155,6 +164,7 @@ def russell_approximation(costs, supply, demand):
     
     return solution
 
+
 def calculate_total_cost(solution, costs):
     """Calculate total transportation cost"""
     total = 0
@@ -163,17 +173,30 @@ def calculate_total_cost(solution, costs):
             total += solution[i][j] * costs[i][j]
     return total
 
+
+def handle_input():
+    s = list(map(int, input("Enter coefficients of supply in one line separated by spaces:\n").split()))
+    print("\nEnter costs for each source separated by spaces:")
+    c = []
+    for i in range(len(s)):
+        c.append(list(map(int, input().split())))
+    d = list(map(int, input("\nEnter coefficients of demand in one line separated by spaces:\n").split()))
+
+    return s, c, d
+
+
 # Example usage
 if __name__ == "__main__":
     # Example problem from slides
-    costs = [
-        [464, 513, 654, 867],
-        [352, 416, 690, 791],
-        [995, 682, 388, 685]
-    ]
-    
-    supply = [75, 125, 100]
-    demand = [80, 65, 70, 85]
+    # costs = [
+    #     [464, 513, 654, 867],
+    #     [352, 416, 690, 791],
+    #     [995, 682, 388, 685]
+    # ]
+    #
+    # supply = [75, 125, 100]
+    # demand = [80, 65, 70, 85]
+    supply, costs, demand = handle_input()
     
     # Print initial problem
     print("Transportation Problem")
