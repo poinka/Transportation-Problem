@@ -25,6 +25,7 @@ Enter costs for each source separated by spaces:
 
 Enter coefficients of demand in one line separated by spaces:
 80 65 70 85
+```
 
 ## Example Output
 
